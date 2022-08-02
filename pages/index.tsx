@@ -34,7 +34,7 @@ const Home: NextPage = () => {
               return (
                 <>
                   {[...Array(30)].map((x, i) => (
-                    <Skeleton key={i} />
+                    <Skeleton key={i} type="listPage" />
                   ))}
                 </>
               );

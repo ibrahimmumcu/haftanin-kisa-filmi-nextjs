@@ -12,6 +12,38 @@
   }
 }
 
+.featured {
+  height: 100vh;
+  max-height: 800px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  background: #dddbdd;
+
+  .content {
+    margin: auto auto 100px auto;
+    width: 100%;
+    max-width: 600px;
+
+    .title {
+      height: 60px;
+      width: 120px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .description {
+      height: 24px;
+      width: 100%;
+      max-width: 250px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
+
 .skeletonBox {
   position: relative;
 
