@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Film } from "../interfaces/film.interface";
 import styles from "../styles/FilmPlayer.module.scss";
 
@@ -8,6 +9,12 @@ type FilmCardProps = {
 };
 
 export default function FilmPlayer({ film }: FilmCardProps) {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const startPlaying = () => {
+    setIsPlaying(true);
+  };
+
   return (
     <>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
@@ -17,6 +24,63 @@ export default function FilmPlayer({ film }: FilmCardProps) {
           layout="fill"
           objectFit="cover"
         />
+      </div>
+
+      <div className={styles.play} onClick={startPlaying}>
+        <svg
+          fill="none"
+          stroke="#fff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polygon points="5 3 19 12 5 21 5 3" />
+        </svg>
+      </div>
+
+      <div className={styles.content}>
+        <div className={styles.info}>
+          <h1>{film?.title}</h1>
+          <div className={styles.description}>
+            {film?.description}
+            <Link
+              href={`https://filmloverss.com/' + ${film?.link}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Devamı
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className={`${styles.curtain} ${isPlaying ? styles.active : ""}`}>
+        <div className={styles.curtainWrapper}>
+          <input
+            type="checkbox"
+            defaultChecked={isPlaying}
+            name="controlled"
+          ></input>
+
+          <div
+            className={`${styles.curtainPanel} ${styles.curtainPanelLeft}`}
+          ></div>
+
+          <div className={styles.curtainContent}>
+            <div className={styles.player}>
+              <div
+                className={styles.videoWrapper}
+                dangerouslySetInnerHTML={{ __html: film.videoEmbed }}
+              ></div>
+            </div>
+          </div>
+
+          <div
+            className={`${styles.curtainPanel} ${styles.curtainPanelRight}`}
+          ></div>
+        </div>
       </div>
     </>
   );

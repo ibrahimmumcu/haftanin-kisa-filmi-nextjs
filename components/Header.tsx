@@ -23,7 +23,7 @@ export default function Header({ page }: HeaderProps) {
         }`}
       >
         <Link href="/">
-          <div className={styles.logo}>
+          <div className={styles.logo} style={{ cursor: "pointer" }}>
             <svg
               width="333"
               height="386"

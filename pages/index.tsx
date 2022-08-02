@@ -24,7 +24,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      <Header page="" />
 
       <div className={styles.filmCardContainer}>
         {data.data.map((film) => (
