@@ -2,7 +2,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "../styles/Header.module.scss";
 
-export default function Header() {
+type HeaderProps = {
+  page: string;
+};
+
+export default function Header({ page }: HeaderProps) {
   const [scroll, setScroll] = useState(false);
 
   useEffect(() => {
@@ -13,7 +17,11 @@ export default function Header() {
 
   return (
     <div className={`${styles.header} ${scroll ? styles.scrolled : ""}`}>
-      <div className={styles.headerContainer}>
+      <div
+        className={`${styles.headerContainer} ${
+          page === "movie" ? styles.movie : ""
+        }`}
+      >
         <Link href="/">
           <div className={styles.logo}>
             <svg
@@ -51,7 +59,7 @@ export default function Header() {
           </div>
         </Link>
       </div>
-      <div className={styles.hiddenHeader}></div>
+      {page !== "movie" && <div className={styles.hiddenHeader}></div>}
     </div>
   );
 }

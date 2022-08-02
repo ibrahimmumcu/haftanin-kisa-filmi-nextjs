@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Film } from "../interfaces/film.interface";
 import styles from "../styles/FilmCard.module.scss";
 
@@ -9,24 +10,17 @@ type FilmCardProps = {
 export default function FilmCard({ film }: FilmCardProps) {
   return (
     <div className={styles.imageContainer}>
-      <Image
-        src={film.featuredImage}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-      ></Image>
-      <div className={styles.title}>{film.title}</div>
+      <Link href={`/film/${encodeURIComponent(film.link)}`}>
+        <div>
+          <Image
+            src={film.featuredImage}
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+          ></Image>
+          <div className={styles.title}>{film.title}</div>
+        </div>
+      </Link>
     </div>
   );
 }
-
-/*
-export default function ProjectLink({ project }) {
-  return (
-    <div id={project.slug} className={LayoutStyles.ProjectLink}>
-      <Link href={`/project/${project.slug}`}>{project.title}</Link>:{' '}
-      <span>{project.description}</span>
-    </div>
-  );
-}
-*/
