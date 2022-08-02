@@ -7,12 +7,13 @@ import useSWR from "swr";
 import fetcher from "../lib/fetcher";
 import Header from "../components/Header";
 import Skeleton from "../components/Skeleton";
+import { FilmsResponse } from "../interfaces/films-response.interface";
 
 const Home: NextPage = () => {
-  const { data, error } = useSWR(
+  const { data, error } = useSWR<FilmsResponse>(
     "/api/all?page=1&sortBy=latest&perPage=10000",
     fetcher
-  ) as { data: { data: any[]; counter: number }; error: any };
+  );
 
   if (error) return <div>failed to load</div>;
 
