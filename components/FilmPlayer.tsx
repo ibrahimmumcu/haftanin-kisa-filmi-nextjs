@@ -11,8 +11,16 @@ type FilmCardProps = {
 export default function FilmPlayer({ film }: FilmCardProps) {
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const [isChecked, setChecked] = useState(false);
+
   const startPlaying = () => {
     setIsPlaying(true);
+
+    setChecked(true);
+
+    setTimeout(() => {
+      setChecked(false);
+    }, 500);
   };
 
   return (
@@ -40,7 +48,7 @@ export default function FilmPlayer({ film }: FilmCardProps) {
         </svg>
       </div>
 
-      <div className={styles.content}>
+      <div className={`${styles.content} ${isPlaying ? styles.isPlaying : ""}`}>
         <div className={styles.info}>
           <h1>{film?.title}</h1>
           <div className={styles.description}>
@@ -56,14 +64,12 @@ export default function FilmPlayer({ film }: FilmCardProps) {
         </div>
       </div>
 
-      <div className={`${styles.curtain} ${isPlaying ? styles.active : ""}`}>
+      <div
+        className={`${styles.curtain} ${isPlaying ? styles.isPlaying : ""}  ${
+          isChecked ? styles.isChecked : ""
+        }`}
+      >
         <div className={styles.curtainWrapper}>
-          <input
-            type="checkbox"
-            defaultChecked={isPlaying}
-            name="controlled"
-          ></input>
-
           <div
             className={`${styles.curtainPanel} ${styles.curtainPanelLeft}`}
           ></div>

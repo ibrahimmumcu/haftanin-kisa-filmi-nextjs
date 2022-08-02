@@ -11,23 +11,6 @@
   cursor: pointer;
 }
 
-.isPlaying {
-  .info {
-    h1,
-    .description {
-      display: none;
-    }
-
-    &.info:after {
-      background: linear-gradient(to bottom, black 0%, black 100%);
-    }
-  }
-
-  img.play {
-    display: none;
-  }
-}
-
 .content {
   display: flex;
   position: absolute;
@@ -35,6 +18,23 @@
   left: 0;
   width: 100%;
   height: 100%;
+
+  &.isPlaying {
+    .info {
+      h1,
+      .description {
+        display: none;
+      }
+
+      &.info:after {
+        background: linear-gradient(to bottom, black 0%, black 100%);
+      }
+    }
+
+    img.play {
+      display: none;
+    }
+  }
 }
 
 .info {
@@ -96,8 +96,20 @@
   display: none;
   z-index: 2;
 
-  &.active {
+  &.isPlaying {
     display: block;
+  }
+
+  &.isChecked {
+    .curtainPanel {
+      &.curtainPanelLeft {
+        transform: translateX(0);
+      }
+
+      &.curtainPanelRight {
+        transform: translateX(0);
+      }
+    }
   }
 
   .curtainWrapper {
@@ -106,27 +118,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    input[type="checkbox"] {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 100;
-      opacity: 0;
-      top: 0;
-      left: 0;
-      visibility: hidden;
-
-      &:checked {
-        & ~ div.curtain__panel--left {
-          transform: translateX(0);
-        }
-
-        & ~ div.curtain__panel--right {
-          transform: translateX(0);
-        }
-      }
-    }
   }
 
   .curtainPanel {
