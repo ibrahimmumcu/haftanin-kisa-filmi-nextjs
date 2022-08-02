@@ -1,0 +1,61 @@
+.header {
+  &.scrolled {
+    .headerContainer {
+      z-index: 3;
+      height: 80px;
+      background: transparent;
+      transition: all 0.3s;
+
+      .logo {
+        height: 64px;
+        width: 64px;
+      }
+    }
+  }
+}
+
+.hiddenHeader {
+  position: relative;
+  height: 120px;
+  width: 100%;
+}
+
+.headerContainer {
+  height: 120px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  top: 0;
+  z-index: 0;
+  position: fixed;
+
+  &.movie {
+    height: 80px;
+    background: transparent;
+    transition: all 0.3s;
+    z-index: 3;
+
+    .logo {
+      height: 64px;
+      width: 64px;
+    }
+  }
+
+  .logo {
+    height: 80px;
+    width: 80px;
+    display: inline-block;
+    transition: all 0.3s;
+
+    svg {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
