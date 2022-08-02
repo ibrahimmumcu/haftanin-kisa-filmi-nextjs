@@ -1,5 +1,3 @@
-import { useRouter } from "next/router";
-import ErrorPage from "next/error";
 import { Film } from "../../interfaces/film.interface";
 import useSWR from "swr";
 import fetcher from "../../lib/fetcher";
@@ -11,12 +9,6 @@ type FilmDetailProps = {
 };
 
 export default function FilmDetail({ link }: FilmDetailProps) {
-  const router = useRouter();
-
-  if (!router.isFallback && !link) {
-    return <ErrorPage statusCode={404} />;
-  }
-
   const { data, error } = useSWR("/api/film/" + link, fetcher) as {
     data: Film;
     error: any;
