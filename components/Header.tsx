@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "../styles/Header.module.scss";
 
@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <div className={`${styles.header} ${scroll ? styles.scrolled : ""}`}>
       <div className={styles.headerContainer}>
-        <a className={styles.logo} href="/">
+        <Link className={styles.logo} href="/">
           <svg
             width="333"
             height="386"
@@ -47,7 +47,7 @@ export default function Header() {
             ></path>
           </svg>
           <span>logo</span>
-        </a>
+        </Link>
       </div>
       <div className={styles.hiddenHeader}></div>
     </div>
