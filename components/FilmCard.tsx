@@ -10,10 +10,10 @@ export default function FilmCard({ film }: FilmCardProps) {
   return (
     <div className={styles.imageContainer}>
       <Image
-        height={240}
-        width={360}
         src={film.featuredImage}
-        layout="fixed"
+        layout="fill"
+        objectFit="cover"
+        objectPosition="center"
       ></Image>
       <div className={styles.title}>{film.title}</div>
     </div>

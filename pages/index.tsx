@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import FilmCard from "../components/FilmCard";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Home.module.scss";
 import useSWR from "swr";
 import fetcher from "../lib/fetcher";
 
@@ -23,12 +23,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.container}>
-        <div className={styles.filmCardContainer}>
-          {data.data.map((film) => (
-            <FilmCard key={film.link} film={film} />
-          ))}
-        </div>
+      <div className={styles.filmCardContainer}>
+        {data.data.map((film) => (
+          <FilmCard key={film.link} film={film} />
+        ))}
       </div>
 
       <footer className={styles.footer}>
