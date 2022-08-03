@@ -5,6 +5,8 @@ import Header from "../../components/Header";
 import FilmPlayer from "../../components/FilmPlayer";
 import Skeleton from "../../components/Skeleton";
 import { FilmsResponse } from "../../interfaces/films-response.interface";
+import FilmCard from "../../components/FilmCard";
+import homeStyles from "../../styles/Home.module.scss";
 
 type FilmDetailProps = {
   link: string;
@@ -17,8 +19,13 @@ export default function FilmDetail({ link }: FilmDetailProps) {
   );
 
   let filmDetail;
+  let randomFilms;
   if (data) {
     filmDetail = data.data.find((film) => film.link === link) as Film;
+
+    const copyFilms = [...data.data];
+    const shuffled = copyFilms.sort(() => 0.5 - Math.random());
+    randomFilms = shuffled.slice(0, 6);
   }
 
   if (error) return <div>failed to load</div>;
@@ -30,10 +37,31 @@ export default function FilmDetail({ link }: FilmDetailProps) {
 
       {(() => {
         if (!data) {
-          return <Skeleton type="filmDetail" />;
+          return (
+            <>
+              <Skeleton type="filmDetail" />
+              {[...Array(60)].map((x, i) => (
+                <Skeleton key={i} type="listPage" />
+              ))}
+            </>
+          );
         } else {
           return (
-            <FilmPlayer key={filmDetail?.link} film={filmDetail as Film} />
+            <>
+              <FilmPlayer key={filmDetail?.link} film={filmDetail as Film} />
+              <div className={homeStyles.container}>
+                <div className={homeStyles.sectionTitle}>
+                  <span>Rastgele Filmler</span>
+                  <span className={homeStyles.right}></span>
+                </div>
+
+                <div className={homeStyles.filmCardContainer}>
+                  {randomFilms?.map((film) => (
+                    <FilmCard key={film.link} film={film} />
+                  ))}
+                </div>
+              </div>
+            </>
           );
         }
       })()}
