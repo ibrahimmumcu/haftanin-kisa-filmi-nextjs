@@ -25,6 +25,11 @@ export default function FilmPlayer({ film }: FilmCardProps) {
     const parser = new DOMParser();
     var parsedIframe = parser.parseFromString(film.videoEmbed, "text/html");
     let iframe = parsedIframe.getElementsByTagName("iframe");
+
+    if (iframe?.length === 0) {
+      return;
+    }
+
     let src = iframe[0].src;
     const paramMergerChar = src.indexOf("?") > -1 ? "&" : "?";
     const autoPlayUrlString = film.videoEmbed.replace(
