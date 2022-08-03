@@ -13,6 +13,7 @@ export default function FilmCard({ film }: FilmCardProps) {
       <a style={{ width: "100%", height: "100%", display: "block" }}>
         <div className={styles.imageContainer}>
           <Image
+            alt={`${film.title} poster`}
             src={film.featuredImage}
             layout="fill"
             objectFit="cover"

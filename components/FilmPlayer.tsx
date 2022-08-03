@@ -27,7 +27,7 @@ export default function FilmPlayer({ film }: FilmCardProps) {
     <>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
         <Image
-          alt="Mountains"
+          alt={`${film.title} poster`}
           src={film.featuredImage}
           layout="fill"
           objectFit="cover"
@@ -53,12 +53,10 @@ export default function FilmPlayer({ film }: FilmCardProps) {
           <h1>{film?.title}</h1>
           <div className={styles.description}>
             {film?.description}
-            <Link
-              href={`https://filmloverss.com/' + ${film?.link}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Devamı
+            <Link href={`https://filmloverss.com/${film?.link}`} passHref>
+              <a target="_blank" rel="noreferrer">
+                Devamı
+              </a>
             </Link>
           </div>
         </div>
