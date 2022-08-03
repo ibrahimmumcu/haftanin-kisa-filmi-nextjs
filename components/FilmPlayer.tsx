@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Film } from "../interfaces/film.interface";
 import styles from "../styles/FilmPlayer.module.scss";
 
@@ -15,13 +15,38 @@ export default function FilmPlayer({ film }: FilmCardProps) {
 
   const startPlaying = () => {
     setIsPlaying(true);
-
     setChecked(true);
-
     setTimeout(() => {
       setChecked(false);
     }, 500);
   };
+
+  const addAutoPlayToIframe = () => {
+    const parser = new DOMParser();
+    var parsedIframe = parser.parseFromString(film.videoEmbed, "text/html");
+    let iframe = parsedIframe.getElementsByTagName("iframe");
+    let src = iframe[0].src;
+    const paramMergerChar = src.indexOf("?") > -1 ? "&" : "?";
+    const autoPlayUrlString = film.videoEmbed.replace(
+      src,
+      src + paramMergerChar + "autoplay=1"
+    );
+
+    film = {
+      ...film,
+      videoEmbed: autoPlayUrlString,
+    };
+
+    const allowAttr = iframe[0].allow;
+    if (allowAttr.length === 0) {
+      film.videoEmbed = film.videoEmbed.replace(
+        "></iframe>",
+        ' allow="autoplay; fullscreen"></iframe>'
+      );
+    }
+  };
+
+  addAutoPlayToIframe();
 
   return (
     <>
@@ -74,10 +99,12 @@ export default function FilmPlayer({ film }: FilmCardProps) {
 
           <div className={styles.curtainContent}>
             <div className={styles.player}>
-              <div
-                className={styles.videoWrapper}
-                dangerouslySetInnerHTML={{ __html: film.videoEmbed }}
-              ></div>
+              {isPlaying && (
+                <div
+                  className={styles.videoWrapper}
+                  dangerouslySetInnerHTML={{ __html: film.videoEmbed }}
+                ></div>
+              )}
             </div>
           </div>
 
