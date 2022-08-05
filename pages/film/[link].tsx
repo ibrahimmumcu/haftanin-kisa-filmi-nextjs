@@ -26,7 +26,7 @@ export default function FilmDetail({ link }: FilmDetailProps) {
 
     const copyFilms = [...data.data];
     const shuffled = copyFilms.sort(() => 0.5 - Math.random());
-    randomFilms = shuffled.slice(0, 6);
+    randomFilms = shuffled.slice(0, 9);
   }
 
   if (error) return <div>failed to load</div>;
