@@ -1,0 +1,26 @@
+.footer {
+  background: #ec6840;
+  width: 100%;
+  margin-top: 32px;
+  display: flex;
+  color: #fff;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 40px;
+  padding-top: 20px;
+
+  svg {
+    height: 120px;
+    width: 120px;
+  }
+}
+
+.powered {
+  margin-top: 20px;
+
+  svg {
+    height: 16px;
+    width: 16px;
+    margin: 0 4px;
+  }
+}
