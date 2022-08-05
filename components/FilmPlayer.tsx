@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Film } from "../interfaces/film.interface";
 import styles from "../styles/FilmPlayer.module.scss";
+import { parse } from "node-html-parser";
 
 type FilmCardProps = {
   film: Film;
@@ -21,37 +22,27 @@ export default function FilmPlayer({ film }: FilmCardProps) {
     }, 500);
   };
 
-  const addAutoPlayToIframe = () => {
-    const parser = new DOMParser();
-    var parsedIframe = parser.parseFromString(film.videoEmbed, "text/html");
-    let iframe = parsedIframe.getElementsByTagName("iframe");
-
-    if (iframe?.length === 0) {
+  const addAutoPlay = () => {
+    if (film.videoEmbed.length === 0) {
       return;
     }
 
-    let src = iframe[0].src;
-    const paramMergerChar = src.indexOf("?") > -1 ? "&" : "?";
-    const autoPlayUrlString = film.videoEmbed.replace(
-      src,
-      src + paramMergerChar + "autoplay=1"
-    );
+    const root = parse(film.videoEmbed);
+    const iframe = root.querySelector("iframe");
 
-    film = {
-      ...film,
-      videoEmbed: autoPlayUrlString,
-    };
-
-    const allowAttr = iframe[0].allow;
-    if (allowAttr.length === 0) {
-      film.videoEmbed = film.videoEmbed.replace(
-        "></iframe>",
-        ' allow="autoplay; fullscreen"></iframe>'
-      );
+    let src = iframe?.attributes?.src as string;
+    if (iframe?.attributes.src.indexOf("autoplay") === -1) {
+      const char = src.indexOf("?") > -1 ? "&" : "?";
+      src = src + `${char}autoplay=1`;
     }
+
+    iframe?.setAttribute("src", src);
+    iframe?.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
+
+    film.videoEmbed = iframe?.toString() as string;
   };
 
-  //addAutoPlayToIframe();
+  addAutoPlay();
 
   return (
     <>
