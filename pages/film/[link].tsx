@@ -52,7 +52,7 @@ export default function FilmDetail({ link }: FilmDetailProps) {
               <FilmPlayer key={filmDetail?.link} film={filmDetail as Film} />
               <div className={homeStyles.container}>
                 <div className={homeStyles.sectionTitle}>
-                  <span>Rastgele Filmler</span>
+                  <span>Rastgele Filmler </span>
                   <span className={homeStyles.right}></span>
                 </div>
 
