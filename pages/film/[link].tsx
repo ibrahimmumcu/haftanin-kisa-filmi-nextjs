@@ -50,9 +50,15 @@ export default function FilmDetail({ film }: any) {
 
 export async function getStaticProps({ params }: any) {
   const link = params.link;
-  const results = await fetch(`http://localhost:3000/api/film/${link}`).then(
-    (res) => res.json()
-  );
+
+  let url: string;
+  if (process.env.NODE_ENV === "production") {
+    url = `${process.env.VERCEL_URL}/api/film/${link}`;
+  } else {
+    url = `http://localhost:3000/api/film/${link}`;
+  }
+
+  const results = await fetch(url).then((res) => res.json());
 
   return {
     props: {
@@ -62,9 +68,14 @@ export async function getStaticProps({ params }: any) {
 }
 
 export async function getStaticPaths() {
-  const data = await fetch(
-    "http://localhost:3000/api/all?page=1&sortBy=latest&perPage=10000"
-  ).then((res) => res.json());
+  let url: string;
+  if (process.env.NODE_ENV === "production") {
+    url = `${process.env.VERCEL_URL}/api/all?page=1&sortBy=latest&perPage=10000`;
+  } else {
+    url = "http://localhost:3000/api/all?page=1&sortBy=latest&perPage=10000";
+  }
+
+  const data = await fetch(url).then((res) => res.json());
   const films = data.data;
   return {
     paths: films.map((film: Film) => {
