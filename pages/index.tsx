@@ -2,21 +2,12 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import FilmCard from "../components/FilmCard";
 import styles from "../styles/Home.module.scss";
-import useSWR from "swr";
-import fetcher from "../lib/fetcher";
 import Header from "../components/Header";
 import Skeleton from "../components/Skeleton";
-import { FilmsResponse } from "../interfaces/films-response.interface";
 import Footer from "../components/Footer";
+import { Film } from "../interfaces/film.interface";
 
-const Home: NextPage = () => {
-  const { data, error } = useSWR<FilmsResponse>(
-    "/api/all?page=1&sortBy=latest&perPage=10000",
-    fetcher
-  );
-
-  if (error) return <div>failed to load</div>;
-
+const Home: NextPage = ({ films }: any) => {
   return (
     <>
       <Header page="" />
@@ -30,7 +21,7 @@ const Home: NextPage = () => {
 
         <div className={styles.filmCardContainer}>
           {(() => {
-            if (!data) {
+            if (!films) {
               return (
                 <>
                   {[...Array(30)].map((x, i) => (
@@ -41,7 +32,7 @@ const Home: NextPage = () => {
             } else {
               return (
                 <>
-                  {data.data.map((film) => (
+                  {films.map((film: Film) => (
                     <FilmCard key={film.link} film={film} />
                   ))}
                 </>
@@ -55,5 +46,19 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const res = await fetch(
+    "http://localhost:3000/api/all?page=1&sortBy=latest&perPage=10000"
+  );
+  const data = await res.json();
+  const films = data.data;
+
+  return {
+    props: {
+      films,
+    },
+  };
+}
 
 export default Home;

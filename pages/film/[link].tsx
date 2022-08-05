@@ -13,31 +13,13 @@ type FilmDetailProps = {
   link: string;
 };
 
-export default function FilmDetail({ link }: FilmDetailProps) {
-  const { data, error } = useSWR<FilmsResponse>(
-    "/api/all?page=1&sortBy=latest&perPage=10000",
-    fetcher
-  );
-
-  let filmDetail;
-  let randomFilms;
-  if (data) {
-    filmDetail = data.data.find((film) => film.link === link) as Film;
-
-    const copyFilms = [...data.data];
-    const shuffled = copyFilms.sort(() => 0.5 - Math.random());
-    randomFilms = shuffled.slice(0, 9);
-  }
-
-  if (error) return <div>failed to load</div>;
-  //if (!data) return <div>loading...</div>;
-
+export default function FilmDetail({ film }: any) {
   return (
     <>
       <Header page="movie" />
 
       {(() => {
-        if (!data) {
+        if (!film) {
           return (
             <>
               <Skeleton type="filmDetail" />
@@ -49,17 +31,11 @@ export default function FilmDetail({ link }: FilmDetailProps) {
         } else {
           return (
             <>
-              <FilmPlayer key={filmDetail?.link} film={filmDetail as Film} />
+              <FilmPlayer key={film?.link} film={film as Film} />
               <div className={homeStyles.container}>
                 <div className={homeStyles.sectionTitle}>
                   <span>Rastgele Filmler</span>
                   <span className={homeStyles.right}></span>
-                </div>
-
-                <div className={homeStyles.filmCardContainer}>
-                  {randomFilms?.map((film) => (
-                    <FilmCard key={film.link} film={film} />
-                  ))}
                 </div>
               </div>
             </>
@@ -72,10 +48,33 @@ export default function FilmDetail({ link }: FilmDetailProps) {
   );
 }
 
-export async function getServerSideProps({ params }: any) {
+export async function getStaticProps({ params }: any) {
+  const link = params.link;
+  const results = await fetch(`http://localhost:3000/api/film/${link}`).then(
+    (res) => res.json()
+  );
+
   return {
     props: {
-      link: params.link,
+      film: results,
     },
+  };
+}
+
+export async function getStaticPaths() {
+  const data = await fetch(
+    "http://localhost:3000/api/all?page=1&sortBy=latest&perPage=10000"
+  ).then((res) => res.json());
+  const films = data.data;
+  return {
+    paths: films.map((film: Film) => {
+      const link = film.link;
+      return {
+        params: {
+          link,
+        },
+      };
+    }),
+    fallback: false,
   };
 }
