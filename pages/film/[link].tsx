@@ -58,7 +58,7 @@ export async function getStaticProps({ params }: any) {
   if (process.env.VERCEL_ENV === "development") {
     url = `http://localhost:3000/api/film/${link}`;
   } else {
-    url = `${process.env.VERCEL_URL}/api/film/${link}`;
+    url = `https://${process.env.VERCEL_URL}/api/film/${link}`;
   }
 
   const results = await fetch(url).then((res) => res.json());
@@ -78,7 +78,7 @@ export async function getStaticPaths() {
   if (process.env.VERCEL_ENV === "development") {
     url = "http://localhost:3000/api/all?page=1&sortBy=latest&perPage=10000";
   } else {
-    url = `${process.env.VERCEL_URL}/api/all?page=1&sortBy=latest&perPage=10000`;
+    url = `https://${process.env.VERCEL_URL}/api/all?page=1&sortBy=latest&perPage=10000`;
   }
 
   const data = await fetch(url).then((res) => res.json());
