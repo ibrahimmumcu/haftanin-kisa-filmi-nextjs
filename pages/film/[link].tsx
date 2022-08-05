@@ -1,17 +1,9 @@
 import { Film } from "../../interfaces/film.interface";
-import useSWR from "swr";
-import fetcher from "../../lib/fetcher";
 import Header from "../../components/Header";
 import FilmPlayer from "../../components/FilmPlayer";
 import Skeleton from "../../components/Skeleton";
-import { FilmsResponse } from "../../interfaces/films-response.interface";
-import FilmCard from "../../components/FilmCard";
 import homeStyles from "../../styles/Home.module.scss";
 import Footer from "../../components/Footer";
-
-type FilmDetailProps = {
-  link: string;
-};
 
 export default function FilmDetail({ film }: any) {
   return (
