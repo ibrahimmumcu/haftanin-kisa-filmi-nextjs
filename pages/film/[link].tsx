@@ -52,7 +52,7 @@ export async function getStaticProps({ params }: any) {
   const link = params.link;
 
   let url: string;
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.VERCEL_ENV === "production") {
     url = `${process.env.VERCEL_URL}/api/film/${link}`;
   } else {
     url = `http://localhost:3000/api/film/${link}`;
@@ -69,7 +69,7 @@ export async function getStaticProps({ params }: any) {
 
 export async function getStaticPaths() {
   let url: string;
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.VERCEL_ENV === "production") {
     url = `${process.env.VERCEL_URL}/api/all?page=1&sortBy=latest&perPage=10000`;
   } else {
     url = "http://localhost:3000/api/all?page=1&sortBy=latest&perPage=10000";

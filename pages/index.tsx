@@ -49,7 +49,7 @@ const Home: NextPage = ({ films }: any) => {
 
 export async function getStaticProps() {
   let url: string;
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.VERCEL_ENV === "production") {
     url = `${process.env.VERCEL_URL}/api/all?page=1&sortBy=latest&perPage=10000`;
   } else {
     url = "http://localhost:3000/api/all?page=1&sortBy=latest&perPage=10000";
