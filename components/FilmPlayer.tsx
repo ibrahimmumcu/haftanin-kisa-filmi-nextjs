@@ -51,7 +51,7 @@ export default function FilmPlayer({ film }: FilmCardProps) {
     }
   };
 
-  addAutoPlayToIframe();
+  //addAutoPlayToIframe();
 
   return (
     <>
