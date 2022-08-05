@@ -48,15 +48,7 @@ const Home: NextPage = ({ films }: any) => {
 };
 
 export async function getStaticProps() {
-  console.log("env", process.env.VERCEL_ENV);
-  console.log("url", process.env.VERCEL_URL);
-
-  let url: string;
-  if (process.env.VERCEL_ENV === "development") {
-    url = "http://localhost:3000/api/all?page=1&sortBy=latest&perPage=10000";
-  } else {
-    url = `https://${process.env.VERCEL_URL}/api/all?page=1&sortBy=latest&perPage=10000`;
-  }
+  const url = `https://next.haftaninkisafilmi.com/api/all?page=1&sortBy=latest&perPage=10000`;
   const res = await fetch(url);
   const data = await res.json();
   const films = data.data;

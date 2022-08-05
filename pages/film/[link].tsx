@@ -49,18 +49,8 @@ export default function FilmDetail({ film }: any) {
 }
 
 export async function getStaticProps({ params }: any) {
-  console.log("env", process.env.VERCEL_ENV);
-  console.log("url", process.env.VERCEL_URL);
-
   const link = params.link;
-
-  let url: string;
-  if (process.env.VERCEL_ENV === "development") {
-    url = `http://localhost:3000/api/film/${link}`;
-  } else {
-    url = `https://${process.env.VERCEL_URL}/api/film/${link}`;
-  }
-
+  const url = `https://next.haftaninkisafilmi.com/api/film/${link}`;
   const results = await fetch(url).then((res) => res.json());
 
   return {
@@ -71,15 +61,7 @@ export async function getStaticProps({ params }: any) {
 }
 
 export async function getStaticPaths() {
-  console.log("env", process.env.VERCEL_ENV);
-  console.log("url", process.env.VERCEL_URL);
-
-  let url: string;
-  if (process.env.VERCEL_ENV === "development") {
-    url = "http://localhost:3000/api/all?page=1&sortBy=latest&perPage=10000";
-  } else {
-    url = `https://${process.env.VERCEL_URL}/api/all?page=1&sortBy=latest&perPage=10000`;
-  }
+  const url = `https://next.haftaninkisafilmi.com/api/all?page=1&sortBy=latest&perPage=10000`;
 
   const data = await fetch(url).then((res) => res.json());
   const films = data.data;
