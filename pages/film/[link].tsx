@@ -4,8 +4,9 @@ import FilmPlayer from "../../components/FilmPlayer";
 import Skeleton from "../../components/Skeleton";
 import homeStyles from "../../styles/Home.module.scss";
 import Footer from "../../components/Footer";
+import FilmCard from "../../components/FilmCard";
 
-export default function FilmDetail({ film }: any) {
+export default function FilmDetail({ film, randomFilms }: any) {
   return (
     <>
       <Header page="movie" />
@@ -29,6 +30,12 @@ export default function FilmDetail({ film }: any) {
                   <span>Rastgele Filmler</span>
                   <span className={homeStyles.right}></span>
                 </div>
+
+                <div className={homeStyles.filmCardContainer}>
+                  {randomFilms?.map((film: Film) => (
+                    <FilmCard key={film.link} film={film} />
+                  ))}
+                </div>
               </div>
             </>
           );
@@ -43,11 +50,19 @@ export default function FilmDetail({ film }: any) {
 export async function getStaticProps({ params }: any) {
   const link = params.link;
   const url = `https://next.haftaninkisafilmi.com/api/film/${link}`;
-  const results = await fetch(url).then((res) => res.json());
+  const film = (await fetch(url).then((res) => res.json())) as Film;
+
+  const allUrl = `https://next.haftaninkisafilmi.com/api/all?page=1&sortBy=latest&perPage=10000`;
+  const data = await fetch(allUrl).then((res) => res.json());
+  const films = data.data as Film[];
+  const copyFilms = [...films];
+  const shuffled = copyFilms.sort(() => 0.5 - Math.random());
+  const randomFilms = shuffled.slice(0, 9) as Film[];
 
   return {
     props: {
-      film: results,
+      film,
+      randomFilms,
     },
   };
 }
@@ -56,7 +71,7 @@ export async function getStaticPaths() {
   const url = `https://next.haftaninkisafilmi.com/api/all?page=1&sortBy=latest&perPage=10000`;
 
   const data = await fetch(url).then((res) => res.json());
-  const films = data.data;
+  const films = data.data as Film[];
   return {
     paths: films.map((film: Film) => {
       const link = film.link;
