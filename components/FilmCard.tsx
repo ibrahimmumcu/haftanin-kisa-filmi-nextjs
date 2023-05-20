@@ -19,6 +19,7 @@ export default function FilmCard({ film }: FilmCardProps) {
           src={film.featuredImage}
           fill={true}
           style={{ objectFit: "cover" }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         ></Image>
         <div className={styles.title}>{film.title}</div>
       </div>
