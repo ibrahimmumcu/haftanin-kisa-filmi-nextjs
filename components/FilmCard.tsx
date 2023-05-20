@@ -9,19 +9,20 @@ type FilmCardProps = {
 
 export default function FilmCard({ film }: FilmCardProps) {
   return (
-    <Link href={`/film/${encodeURIComponent(film.link)}`}>
-      <a style={{ width: "100%", height: "100%", display: "block" }}>
-        <div className={styles.imageContainer}>
-          <Image
-            alt={`${film.title} poster`}
-            src={film.featuredImage}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
-          ></Image>
-          <div className={styles.title}>{film.title}</div>
-        </div>
-      </a>
+    <Link
+      href={`/film/${encodeURIComponent(film.link)}`}
+      style={{ width: "100%", height: "100%", display: "block" }}
+    >
+      <div className={styles.imageContainer}>
+        <Image
+          alt={`${film.title} poster`}
+          src={film.featuredImage}
+          fill={true}
+          style={{ objectFit: "cover" }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        ></Image>
+        <div className={styles.title}>{film.title}</div>
+      </div>
     </Link>
   );
 }
