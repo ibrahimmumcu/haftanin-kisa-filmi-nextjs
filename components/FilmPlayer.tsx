@@ -44,12 +44,15 @@ export default function FilmPlayer({ film }: FilmCardProps) {
 
   addAutoPlay();
 
+  film.featuredImageFileName = film.featuredImage.replace(/[\#\?].*$/, '').replace(/^.*[\\\/]/, '');
+  film.featuredImageFileLocation = `/images/${film.featuredImageFileName}`;
+
   return (
     <>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
         <Image
           alt={`${film.title} poster`}
-          src={film.featuredImage}
+          src={film.featuredImageFileLocation}
           fill={true}
           style={{ objectFit: "cover" }}
         />
