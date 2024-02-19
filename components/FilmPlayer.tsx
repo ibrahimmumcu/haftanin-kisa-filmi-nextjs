@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Film } from "../interfaces/film.interface";
 import styles from "../styles/FilmPlayer.module.scss";
 import { parse } from "node-html-parser";
+import Head from "next/head";
 
 type FilmCardProps = {
   film: Film;
@@ -49,6 +50,9 @@ export default function FilmPlayer({ film }: FilmCardProps) {
 
   return (
     <>
+      <Head>
+        <title>Haftanın Kısa Filmi: {film.title}</title>
+      </Head>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
         <Image
           alt={`${film.title} poster`}
