@@ -52,6 +52,11 @@ export default function FilmPlayer({ film }: FilmCardProps) {
     <>
       <Head>
         <title>Haftanın Kısa Filmi: {film.title}</title>
+        <meta property="og:title" content={`Haftanın Kısa Filmi: ${film.title}`} key="title" />
+        <meta
+          name="description"
+          content={`${film.description}`}
+        />
       </Head>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
         <Image
