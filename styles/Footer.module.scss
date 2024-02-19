@@ -8,19 +8,21 @@
   align-items: center;
   padding-bottom: 40px;
   padding-top: 20px;
+  font-size: 12px;
 
   svg {
-    height: 120px;
-    width: 120px;
+    height: 64px;
+    width: 64px;
   }
 }
 
 .powered {
-  margin-top: 20px;
+  margin-top: 12px;
+  font-size: 12px;
 
   svg {
-    height: 16px;
-    width: 16px;
+    height: 12px;
+    width: 12px;
     margin: 0 4px;
   }
 }
