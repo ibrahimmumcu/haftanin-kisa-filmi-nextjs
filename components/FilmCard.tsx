@@ -8,6 +8,8 @@ type FilmCardProps = {
 };
 
 export default function FilmCard({ film }: FilmCardProps) {
+  film.featuredImageFileName = film.featuredImage.replace(/[\#\?].*$/, '').replace(/^.*[\\\/]/, '');
+  film.featuredImageFileLocation = `/images/${film.featuredImageFileName}`;
   return (
     <Link
       href={`/film/${encodeURIComponent(film.link)}`}
@@ -16,7 +18,7 @@ export default function FilmCard({ film }: FilmCardProps) {
       <div className={styles.imageContainer}>
         <Image
           alt={`${film.title} poster`}
-          src={film.featuredImage}
+          src={film.featuredImageFileLocation}
           fill={true}
           style={{ objectFit: "cover" }}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

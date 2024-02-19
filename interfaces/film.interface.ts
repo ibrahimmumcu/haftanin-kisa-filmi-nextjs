@@ -8,4 +8,6 @@ export interface Film {
   dateYearMonthDay: string;
   dateDayMonthYear: string;
   counter: number;
+  featuredImageFileName: string;
+  featuredImageFileLocation: string;
 }
