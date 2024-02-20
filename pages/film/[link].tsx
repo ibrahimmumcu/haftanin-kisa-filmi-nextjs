@@ -13,8 +13,8 @@ export default function FilmDetail({ film, randomFilms }: any) {
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta property="og:title" content={`${pageTitle}`} key="title" />
-        <meta name="description" content={`${film.description}`} />
+        <meta property="og:title" content={pageTitle} key="title" />
+        <meta name="description" content={film.description} />
       </Head>
       <Header page="movie" />
 
