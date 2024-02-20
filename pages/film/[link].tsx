@@ -5,10 +5,17 @@ import Skeleton from "../../components/Skeleton";
 import homeStyles from "../../styles/Home.module.scss";
 import Footer from "../../components/Footer";
 import FilmCard from "../../components/FilmCard";
+import Head from "next/head";
 
 export default function FilmDetail({ film, randomFilms }: any) {
+  const pageTitle = `Haftanın Kısa Filmi: ${film.title}`;
   return (
     <>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta property="og:title" content={`${pageTitle}`} key="title" />
+        <meta name="description" content={`${film.description}`} />
+      </Head>
       <Header page="movie" />
 
       {(() => {
