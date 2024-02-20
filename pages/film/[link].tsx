@@ -15,6 +15,8 @@ export default function FilmDetail({ film, randomFilms }: any) {
         <title>{pageTitle}</title>
         <meta property="og:title" content={pageTitle} key="title" />
         <meta name="description" content={film.description} />
+        <link rel="icon" href="/icons/favicon.ico" />
+        <link rel="icon" type="image/png" href="/icons/icon-48x48.png"></link>
       </Head>
       <Header page="movie" />
 
