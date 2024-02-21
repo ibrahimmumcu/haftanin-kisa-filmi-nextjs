@@ -4,6 +4,8 @@ import styles from "../styles/Footer.module.scss";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const footerText1 = `${currentYear} - Haftanın Kısa Filmi`;
+  const footerText2 = "Powered by ";
 
   return (
     <div className={styles.footer}>
@@ -53,12 +55,10 @@ export default function Footer() {
         </div>
       </Link>
 
-      <div className={styles.copyright}>
-        {currentYear} - Haftanın Kısa Filmi
-      </div>
+      <div className={styles.copyright}>{footerText1}</div>
 
       <div className={styles.powered}>
-        Powered by{" "}
+        {footerText2}
         <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">
           <svg
             width="1000"
